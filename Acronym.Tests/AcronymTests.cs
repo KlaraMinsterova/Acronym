@@ -6,9 +6,12 @@ namespace Acronym.Tests
     public class AcronymTests
     {
         [Test]
-        public void ReturnsEmptyString_When_InputIsEmpty()
+        [TestCase(null, TestName = "ReturnsEmptyString_When_StringIsNull")]
+        [TestCase("", TestName = "ReturnsEmptyString_When_StringIsEmpty")]
+        [TestCase("   ", TestName = "ReturnsEmptyString_When_StringIsWhiteSpace")]
+        public void ReturnsEmptyString_When_PhraseIsInvalid(string phrase)
         {
-            Assert.That(CreateAcronym(""), Is.EqualTo(""));
+            Assert.That(CreateAcronym(phrase), Is.EqualTo(""));
         }
 
         [Test]
@@ -27,6 +30,12 @@ namespace Acronym.Tests
         public void ReturnsValidAcronym_When_PhraseIncludesDash()
         {
             Assert.That(CreateAcronym("Complementary metal-oxide semiconductor"), Is.EqualTo("CMOS"));
+        }
+
+        [Test]
+        public void ReturnsValidAcronym_When_SpecialCaseIsApplied()
+        {
+            Assert.That(CreateAcronym("The International Magazine of Events"), Is.EqualTo("TIME"));
         }
     }
 }

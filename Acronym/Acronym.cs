@@ -11,12 +11,18 @@ namespace Acronym
         //here I can add any special cases of transforming word into letter
         private static readonly Dictionary<string, string> SpecialCases = new Dictionary<string, string>
         {
-            { "the", "" }
+            { "of", "" }
         };
 
         public static string CreateAcronym(string phrase)
         {
             string acronym = "";
+
+            if (string.IsNullOrWhiteSpace(phrase))
+            {
+                return acronym;
+            }
+
             string[] words = phrase.Split(CharactersToSplitBy, StringSplitOptions.RemoveEmptyEntries);
             
             foreach (string word in words)
